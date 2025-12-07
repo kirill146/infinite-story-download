@@ -25,6 +25,10 @@ namespace downloadInfiniteStory
 
         public void Write()
         {
+           string fileDir = Path.GetDirectoryName(filePath);
+           if (fileDir != "") {
+               Directory.CreateDirectory(fileDir);
+           }
            WriteEPub().Wait();
         }
 

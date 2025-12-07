@@ -50,26 +50,23 @@ namespace downloadInfiniteStory
 
         private void BuildHtml(Dictionary<string, ISPage> pageMap, string roomId, string dirPath)
         {
-            String baseHtml = ISPageHtmlParser.ReadHtml(roomId).Result;
-            ISPage page = ISPageHtmlParser.ParseRawISHtml(baseHtml, roomId, dirPath);
-            pageMap.Add(roomId, page);
-            SavePage(roomId, page, dirPath);
-            foreach (String childRoomId in page.Choices.Select(x => x.RoomId))
+            foreach (string pageToAdd in pageMap.Keys)
             {
-                if (!pageMap.ContainsKey(childRoomId))
-                {
-                    BuildHtml(pageMap, childRoomId, dirPath);
-                }
+                ISPage page = pageMap[pageToAdd];
+                SavePage(pageToAdd, page, dirPath);
             }
         }
 
         private static void SavePage(string roomId, ISPage page, string dirPath)
         {
-            File.AppendAllText(Path.Combine(dirPath, roomId + ".html"), GetHtmlContents(page));
+            File.WriteAllText(Path.Combine(dirPath, roomId + ".html"), GetHtmlContents(page));
         }
 
         public void Write()
         {
+            if (dirPath != "") {
+                Directory.CreateDirectory(dirPath);
+            }
             BuildHtml(pageMap, baseRoom, dirPath);
         }
     }

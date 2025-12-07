@@ -17,10 +17,10 @@ namespace downloadInfiniteStory
 {
     class ISPageHtmlParser
     {
-        private static readonly String STORY_MAIN = "<div id=\"story_main\">";
+        private static readonly String STORY_MAIN = "<div id=\"story-main\">";
         private static readonly String END_MAIN = "<!-- end description -->";
         private static readonly String END_CHOICES = "<!-- end choices -->";
-        private static readonly String THE_END_FOOTER = "<div id=\"room-footer\">";
+        private static readonly String THE_END_FOOTER = "<div class=\"room-footer";
 
         private static readonly IDictionary<String, String> imageMap = new ConcurrentDictionary<String, String>();
 
@@ -62,8 +62,10 @@ namespace downloadInfiniteStory
             try
             {
                 HttpClient client = new HttpClient();
-                Stream data = await client.GetStreamAsync(Program.ISUrl + roomId);
-                //WebRequest request = WebRequest.Create(Program.ISUrl + roomId);
+                string url = Program.ISUrl + roomId;
+                Console.WriteLine("fetching " + url);
+                Stream data = await client.GetStreamAsync(url);
+                //WebRequest request = WebRequest.Create(url);
                 //WebResponse response = request.GetResponse();
                 //Stream data = response.GetResponseStream();
                 string html = String.Empty;

@@ -14,8 +14,8 @@ namespace downloadInfiniteStory
 {
     class Program
     {
-        public static readonly string INFINITE_STORY_URL_BASE = "http://infinite-story.com/";
-        public static readonly string ISUrl = "http://infinite-story.com/story/room.php?id=";
+        public static readonly string INFINITE_STORY_URL_BASE = "https://infinite-story.com/";
+        public static readonly string ISUrl = "https://infinite-story.com/story/room.php?id=";
 
         //public static String baseFilePath = "D:\\Documents\\chooseYourOwnStory\\";
         //public static string baseFileName = "myPdf.pdf";
@@ -55,11 +55,11 @@ namespace downloadInfiniteStory
             IWriter writer = null;
             if(options.BuildHtml)
             {
-                writer = BuildHtml(pageMap, baseRoom, Path.GetDirectoryName(options.OutputPath));
+                writer = BuildHtml(pageMap, baseRoom, options.OutputPath);
             }
             else if(options.BuildPdf)
             {
-                writer = BuildPDF(pageMap, baseRoom, Path.GetFileName(options.OutputPath));
+                writer = BuildPDF(pageMap, baseRoom, options.OutputPath);
             }
             else if(options.BuildEpub)
             {

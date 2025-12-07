@@ -45,12 +45,6 @@ namespace downloadInfiniteStory
 
         private void BuildPDF(Dictionary<string, ISPage> pageMap, string baseRoom, Dictionary<string, int> chapterPageMap, bool fakeRun)
         {
-            if (fakeRun)
-            {
-                ISPageHtmlParser.BuildAllISPages(pageMap, baseRoom, filePath).Wait();
-            }
-            //now that we have all the pages, we'll have to clean them up and decide on pages
-
             Dictionary<string, int> ISPageToPhysicalPageMap = new Dictionary<string, int>();
 
             int currentPage = 1;
@@ -144,7 +138,10 @@ namespace downloadInfiniteStory
 
         public void Write()
         {
-            throw new NotImplementedException();
+            if (filePath != "") {
+                Directory.CreateDirectory(filePath);
+            }
+            BuildPDF(pageMap, baseRoom);
         }
     }
 }
